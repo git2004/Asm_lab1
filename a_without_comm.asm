@@ -44,9 +44,8 @@ program:
 	or	dx, dx
 	jnz	overflow     
 	mov	si, ax
-	mov	al, bh
-	cbw
-	or	ax, ax
+	mov	ah, bh
+	sar	ax, 8
 	js	absolute_a
 	add	si, ax
 	js	overflow    
