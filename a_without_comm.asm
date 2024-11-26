@@ -41,7 +41,6 @@ program:
 	mov	dx, ax
 	shl	ax, 1
 	add	ax, dx
-	adc	dx, 0h
 	or	dx, dx
 	jnz	overflow     
 	mov	si, ax
@@ -52,7 +51,7 @@ program:
 	add	si, ax
 	js	overflow    
 	jc	overflow     
-	jmp	short change_way 
+	jmp	change_way 
 	
 absolute_a:
 	neg ax; ax=|a|
@@ -62,7 +61,7 @@ absolute_a:
 change_way:
     or    bl, bl       
     jnz    iteration     
-    jmp    short znam    
+    jmp    znam    
 overflow:
     mov    al, bh      
     mov    bp, bx       
@@ -121,7 +120,7 @@ closeFile:
     mov    ah, 3Eh
     xor    bh, bh
     int    21h
-    jmp    SHORT Exit
+    jmp    Exit
 
 znam:
 	mov	al, ch
@@ -147,7 +146,7 @@ znam:
 	js	abs_a 
     	add    	bp, ax      
     	adc    	dx, 0        
-    	jmp    	short delenie
+    	jmp    	delenie
 abs_a:
 	neg    	ax         
     	sub    	bp, ax    
