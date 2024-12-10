@@ -34,12 +34,11 @@ cycles:
 program:
     	mov    	al, cl   
     	cbw 
-	imul	al
+	imul	ax
 	sal	ax, 2
 	mov	si, ax
 	sal	ax, 1
 	add	ax, si
-	xor	dx, dx
 	adc	dx, 0h
 	xchg	ax, si
 	mov	al, bh
