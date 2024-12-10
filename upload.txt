@@ -33,28 +33,21 @@ cycles:
    	mov    	bh, 80h         
 program:
     	mov    	al, cl   
-    	cbw               
-    	mov    	dx, ax      
-    	sal    	ax, 1      
-    	add    	ax, dx       
-    	sal    	dx, 2       
-    	imul    dx           
-    	or    	dx, dx       
-    	jnz    	overflow     
-    	mov    	si, ax       
-    	mov   	al, bh       
-    	cbw                
-    	or    	ax, ax        
-    	js    	abs_a   
-    	add   	si, ax      
-    	js    	overflow      
-    	jc    	overflow      
-    	jmp   	isFile  
-abs_a:
-    	neg   	ax          
-    	sub   	si, ax        
-    	jc    	isFile    
-    	js    	overflow      
+    	cbw 
+	imul	al
+	sal	ax, 2
+	mov	si, ax
+	sal	ax, 1
+	add	ax, si
+	xor	dx, dx
+	adc	dx, 0h
+	xchg	ax, si
+	mov	al, bh
+	cbw
+	add	ax, si
+	cmp	dh, dl     
+    	jne    	overflow      
+    	jmp   	isFile      
 isFile:
 	or    	bl, bl      
    	jnz   	iteration    
@@ -137,14 +130,9 @@ numerator:
     	cbw                
     	xchg    ax, cx       
     	sub    	ax, cx    
-    	js    	absolute_a
     	add    	bp, ax      
     	adc    	dx, 0       
-    	jmp    	delenie
-absolute_a:
-    	neg    	ax          
-    	sub    	bp, ax    
-    	sbb    	dx, 0     
+    	jmp    	delenie   
 delenie:
     	mov    	ax, bp    
     	idiv    si          
