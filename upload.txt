@@ -134,7 +134,7 @@ numerator:
     	jmp    	delenie   
 delenie:
     	mov    	ax, bp    
-    	idiv    si          
+    	div    si          
     	mov    	[d], ax    
 Exit:
     	mov    	ah, 04Ch
