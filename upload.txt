@@ -43,7 +43,7 @@ program:
 	xchg	ax, si
 	mov	al, bh
 	cbw
-	add	ax, si
+	add	si, ax
 	cmp	dh, dl     
     	jne    	overflow      
     	jmp   	isFile      
@@ -134,7 +134,7 @@ numerator:
     	jmp    	delenie   
 delenie:
     	mov    	ax, bp    
-    	div    si          
+    	idiv    si          
     	mov    	[d], ax    
 Exit:
     	mov    	ah, 04Ch
