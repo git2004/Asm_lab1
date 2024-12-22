@@ -5,9 +5,9 @@
 .data
     file       db    'overflow.txt', 0
     string     db    "0000 0000 0000", 0dh, 0ah
-    c          db    35
-    b          db    -11
-    a          db    -22
+    c          db    2   
+    b          db    21
+    a          db    -66
     d          dw    ?
 .code
 Start:
@@ -44,8 +44,8 @@ program:
 	cbw
 	add	si, ax
 	adc	dx, -1
-    	js    	overflow
-    	jc    	overflow    
+    	cmp	dl, dh
+ 	jnz     overflow
     	jmp   	isFile     
 isFile:
 	or    	bl, bl      
