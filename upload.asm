@@ -32,21 +32,28 @@ cycles:
    	mov    	cx, 8080h       
    	mov    	bh, 80h         
 program:
-	mov	al, cl
-    	cbw
-	mov	dx, ax
-	shl	ax, 1
-	add	ax, dx
-	shl	dx, 2
-	imul	dx
-	mov	si, ax
-	mov	al, bh
-	cbw
-	add	si, ax
+	mov    	al, cl       
+    	cbw                 
+    	mov    	dx, ax     
+    	sal    	ax, 1         
+    	add    	ax, dx       
+    	sal    	dx, 2        
+    	imul    dx          
+    	mov    	si, ax   
+    	mov    	al, bh        
+    	cbw     	          
+    	or	ax, ax        
+    	js    	abs_a  
+    	add    	si, ax
 	adc	dx, -1
-    	cmp	dl, dh
- 	jnz     overflow
-    	jmp   	isFile     
+    	js    	overflow     
+    	jc    	overflow      
+    	jmp    	isFile  
+abs_a:
+	add	si, ax
+	adc	dx, 0
+    	jc    	isFile       
+    	js    	overflow     
 isFile:
 	or    	bl, bl      
    	jnz   	iteration    
