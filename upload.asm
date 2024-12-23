@@ -5,7 +5,7 @@
 .data
     file       db    'overflow.txt', 0
     string     db    "0000 0000 0000", 0dh, 0ah
-    c          db    2   
+    c          db    2  
     b          db    21
     a          db    -66
     d          dw    ?
@@ -41,19 +41,19 @@ program:
     	imul    dx          
     	mov    	si, ax   
     	mov    	al, bh        
-    	cbw     	          
+    	cbw           
     	or	ax, ax        
     	js    	abs_a  
     	add    	si, ax
-	adc	dx, -1
+	adc	dx, 0
     	js    	overflow     
     	jc    	overflow      
     	jmp    	isFile  
 abs_a:
-	add	si, ax
-	adc	dx, 0
-    	jc    	isFile       
-    	js    	overflow     
+	neg	ax
+	sub	si, ax
+   	jc    	isFile       
+  	js    	overflow     
 isFile:
 	or    	bl, bl      
    	jnz   	iteration    
@@ -116,7 +116,7 @@ closeFile:
     	mov    	ah, 3Eh
     	xor    	bh, bh
     	int    	21h
-    	jmp    	Exit
+    	jmp    	exit
 numerator:
    	mov    	al, ch       
 	cbw               
@@ -132,17 +132,22 @@ numerator:
     	mov    	bp, ax     
     	mov    	al, bh       
     	imul    al        
-    	xchg    ax, cx      
-    	cbw                
     	xchg    ax, cx       
-    	sub    	ax, cx    
-    	add    	bp, ax 
-    	jmp    	delenie   
+    	cbw                 
+    	xchg    ax, cx       
+    	sub    	ax, cx       
+    	js    	absol_chis
+    	add    	bp, ax       
+   	adc    	dx, 0          
+    	jmp    	delenie 
+absol_chis:
+	add	bp, ax
+	adc	dx, -1   
 delenie:
     	mov    	ax, bp    
     	idiv   	si          
     	mov    	[d], ax    
-Exit:
+exit:
     	mov    	ah, 04Ch
     	int    	21h
     	End    	Start  
